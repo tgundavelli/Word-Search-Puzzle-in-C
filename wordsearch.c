@@ -55,10 +55,11 @@ void printPuzzle(char** arr) {
     int i, j;
     for(i = 0; i < bSize; i++) {
         for (j = 0; j < bSize - 1; ++j) {
-            printf("%d",*(*(arr + i) + j)); 
+            printf("%c",*(*(arr + i) + j));
+            //printing character so use %c 
             printf(" ");         
         }
-        printf("%d", *(*(arr + i) + j));
+        printf("%c", *(*(arr + i) + j));
         printf("\n");
     }
 }
