@@ -7,6 +7,8 @@ Use git commit -am "save file"
 git config core.autocrlf true
 - for when a input txt files are added
 Use comments to help understand code
+After all the status checking and adding/committing, type : git push
+to update files on github account
 
 Repeated Warning : Never have output file with same name as code. Use default a.exe
 
