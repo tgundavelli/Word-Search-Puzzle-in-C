@@ -69,4 +69,15 @@ void searchPuzzle(char** arr, char* word) {
     // as shown in the sample runs. If not found, it will print a 
     // different message as shown in the sample runs.
     // Your implementation here...
+    int i, j;
+    char** num_arr = (char**)malloc(bSize * sizeof(char*));
+    for(i = 0; i < bSize; i++) {
+        *(num_arr + i) = (char*)malloc(bSize * sizeof(char));
+        for (j = 0; j < bSize - 1; ++j) {
+            *(*(num_arr + i) + j) = '0';         
+        }
+        *(*(num_arr + i) + j) = '0'; 
+    }
+    printf("\nPrinting the search path:\n");
+    printPuzzle(num_arr);
 }
