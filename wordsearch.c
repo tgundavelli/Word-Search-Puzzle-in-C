@@ -52,6 +52,15 @@ void printPuzzle(char** arr) {
     // It must produce the output in the SAME format as the samples 
     // in the instructions.
     // Your implementation here...
+    int i, j;
+    for(i = 0; i < bSize; i++) {
+        for (j = 0; j < bSize - 1; ++j) {
+            printf("%d",*(*(arr + i) + j)); 
+            printf(" ");         
+        }
+        printf("%d", *(*(arr + i) + j));
+        printf("\n");
+    }
 }
 void searchPuzzle(char** arr, char* word) {
     // This function checks if arr contains the search word. If the 

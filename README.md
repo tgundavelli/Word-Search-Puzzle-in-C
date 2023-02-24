@@ -1,5 +1,8 @@
 Have installed Git. Make sure to never accidentally delete Git
 
+This is a great video how to sync local computer with Github account : 
+https://www.youtube.com/watch?v=RGOj5yH7evk 
+
 # Project_ONE_wordsearch
 Save files. Output names should be different from code 
 
