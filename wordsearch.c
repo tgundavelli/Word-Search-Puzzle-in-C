@@ -165,18 +165,22 @@ int distance(int i, int j, int x, int y){
 int recursive(int x, int y, int k, char** arr, char* word){
     int i, j;
     // k = 1 bc first letter found
-
+    static int c = 0; //static does not get initialized everytime
+    //next time maybe have less local variables that have the same name
     for (i = 0; i < bSize; i++){
         for (j = 0; j < bSize; j++){   //j++ not i++
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
-                if ((i != *(warning)) || (j != *(warning+1))){ //and in coding is different from and in truth tables
-                    *(row + k) = i;
-                    *(col + k) = j;
-                    k++;
-                    if (k == (strlen(word))){ //use strlen not len
-                        return 0; //done now, use len, ask before recursion
-                    } 
-                    return recursive(i, j, k, arr, word);
+                for (int ban = 0; ban < c; ban +=2){ //instead of ++, use +=2 bc ban and ban+1
+                    printf("%d", ban);
+                    if ((i != *(warning + ban)) || (j != *(warning+ ban + 1))){ //and in coding is different from and in truth tables
+                        *(row + k) = i;
+                        *(col + k) = j;
+                        k++;
+                        if (k == (strlen(word))){ //use strlen not len
+                            return 0; //done now, use len, ask before recursion
+                        } 
+                        return recursive(i, j, k, arr, word);
+                    }
                 }
             }
         }
@@ -184,15 +188,15 @@ int recursive(int x, int y, int k, char** arr, char* word){
 
 
     //questions - where is 04? Why is it not catching - ifstatement, warning, or loop
-    printf("\n");
     if (k < strlen(word)){
-        *(warning) = *(row + 1);
-        *(warning + 1) = *(col + 1);
+        c++;
+        *(warning + c - 1) = *(row + 1); 
+        *(warning + c) = *(col + 1);
         x = *(row);
         y = *(col);
         memset(row, 0, k * sizeof(int));
         memset(col, 0, k * sizeof(int));
-       *(row) = x;
+        *(row) = x;
         *(col) = y;
         return recursive(x, y, 1, arr, word);
     }
@@ -253,24 +257,26 @@ void searchPuzzle(char** arr, char* word) {
     for(i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
             if ((*(*(arr + i) + j) == *(word + 0)) && (count == 0)){
-                *(row + count) = i;
-                *(col + count) = j;
-                printf("%d \n", *(row + count));
-                printf("%d \n", *(col + count));
+                *(row) = i;
+                *(col) = j;
                 count++;
                 warning = (int*)malloc(20 * sizeof(int));
                 recursive(i, j, 1, arr, word);
+                //if ((*(row + strlen(word) - 1)) == NULL){
+                //    *(warning) = *(row);
+                //    *(warning) = *(col);
+                //    count = 0; //if no end to word found, change to a different starting letter
+                //}
+
             }        
         }  
     }
 
     convert(row, col, word);
-    printf("\nPrinting the search path:\n");
+    printf("\nWord found!\n"); //\n at beginnning prints empty line above
+    printf("Printing the search path:\n");
     printPuzzle(num_arr);
 
-    //best order
-    //new first letter
-    //duplicate 
-    //all caps
+    //duplicate or best order or new first letter
 
 }
