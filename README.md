@@ -17,4 +17,6 @@ Save files. Output names should be different from code
 
 1. Print Original Array CHECK
 2. Initialize Num Array CHECK
-3. Index 1 by 1 (first challenge)
+3. Index 1 by 1 CHECK
+4. All Caps CHECK
+5. Duplicates (backtracing) or new first letter or best order??
