@@ -8,6 +8,7 @@ void searchPuzzle(char** arr, char* word);
 int bSize;
 int* row; //x-coord
 int* col; //y-coord
+int* warning;
 char** num_arr;
 // Main function, DO NOT MODIFY 
 int main(int argc, char **argv) {
@@ -80,24 +81,45 @@ int distance(int i, int j, int x, int y){
 int recursive(int x, int y, int k, char** arr, char* word){
     int i, j;
     // k = 1 bc first letter found
+    static int count;
 
-    printf("%c", *(*(arr + x) + y));
-    printf("%c", *(word + k));
+    warning = (int*)malloc(20 * sizeof(int));
+
+    printf("%d", *(row));
+    printf("%d", *(col));
+
 
     for (i = 0; i < bSize; i++){
         for (j = 0; j < bSize; j++){   //j++ not i++
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
-                *(row + k) = i;
-                *(col + k) = j;
-                printf("%c", *(*(arr + i) + j));
-                printf("%c", *(word + k));
-                k++;
-                return recursive(i, j, k, arr, word);
+                if ((i != *(warning)) && (j != *(warning+1))){
+                    *(row + k) = i;
+                    *(col + k) = j;
+                    printf("%d", i);
+                    printf("%d", j);
+                    printf("%c", *(*(arr + i) + j));
+                    printf("%c", *(word + k));
+                    k++;
+                    return recursive(i, j, k, arr, word);
+                }
             }
-    //        if (k == strlen(word)){ //use strlen not len
-    //            return 0; //done now
-    //        }
+            if (k == strlen(word)){ //use strlen not len
+                return 0; //done now
+            }
         }
+    }
+    count = 0;
+    if (k < strlen(word)){
+        count++;
+        *(warning) = *(row);
+        *(warning + 1) = *(col);
+        x = *(row);
+        y = *(col);
+        memset(row, 0, k * sizeof(int));
+        memset(col, 0, k * sizeof(int));
+        *(row) = x;
+        *(col) = y;
+        return recursive(x, y, 1, arr, word);
     }
     return 0;
 }
@@ -165,7 +187,7 @@ void searchPuzzle(char** arr, char* word) {
 
     //convert(horizontal, vertical, word);
 
-
+    //best order
     //new first letter
     //duplicate 
     //turn into num_array 
