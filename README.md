@@ -13,7 +13,6 @@ to update files on github account
 Repeated Warning : Never have output file with same name as code. Use default a.exe
 
 # Project_ONE_wordsearch
-Save files. Output names should be different from code 
 
 1. Print Original Array CHECK
 2. Initialize Num Array CHECK
