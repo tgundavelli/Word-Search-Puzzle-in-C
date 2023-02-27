@@ -171,7 +171,8 @@ int recursive(int x, int y, int k, char** arr, char* word){
         for (j = 0; j < bSize; j++){   //j++ not i++
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
                 for (int ban = 0; ban < c; ban +=2){ //instead of ++, use +=2 bc ban and ban+1
-                    printf("%d", ban);
+                    printf("C %d \n", c);
+                    printf("Warning%d %d", *(warning+ban), *(warning+ban+1));
                     if ((i != *(warning + ban)) || (j != *(warning+ ban + 1))){ //and in coding is different from and in truth tables
                         *(row + k) = i;
                         *(col + k) = j;
@@ -182,16 +183,16 @@ int recursive(int x, int y, int k, char** arr, char* word){
                         return recursive(i, j, k, arr, word);
                     }
                 }
+                printf("ended");
             }
         }
     }
 
 
-    //questions - where is 04? Why is it not catching - ifstatement, warning, or loop
     if (k < strlen(word)){
+        *(warning ) = *(row + 1);
+        *(warning + 1) = *(col + 1); //0 1 2 3, c = 2, 2 * c
         c++;
-        *(warning + c - 1) = *(row + 1); 
-        *(warning + c) = *(col + 1);
         x = *(row);
         y = *(col);
         memset(row, 0, k * sizeof(int));
@@ -262,11 +263,12 @@ void searchPuzzle(char** arr, char* word) {
                 count++;
                 warning = (int*)malloc(20 * sizeof(int));
                 recursive(i, j, 1, arr, word);
-                if ((row + strlen(word) - 1) == NULL){ //compare pointer with (void*) NULL
-                    *(warning) = *(row);
-                    *(warning) = *(col);
-                    count = 0; //if no end to word found, change to a different starting letter
-                }
+                //printf("ANS %d \n",*(row + strlen(word) - 1));
+                //if ((*(row + strlen(word) - 1)) == NULL){
+                //    *(warning) = *(row);
+                //    *(warning) = *(col);
+                //    count = 0; //if no end to word found, change to a different starting letter
+                //}
 
             }        
         }  
@@ -278,6 +280,12 @@ void searchPuzzle(char** arr, char* word) {
     printPuzzle(num_arr);
 
     //duplicate or best order or new first letter
-    //best order is ok now
+    //best order not doing well but let's focus on new first letter rn
+
+    //best order due to first letter just not working
+    //best order bc deadends. first letter not working is ultimate deadend
+    //not able to go backwards
+
+    //works in all directions but can't handle a new first letter
 
 }
