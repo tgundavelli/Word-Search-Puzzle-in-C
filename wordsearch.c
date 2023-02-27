@@ -91,8 +91,8 @@ int recursive(int x, int y, int k){
                 k++;
                 return recursive(i, j, k);
             }
-            if (k == len(word)){
-                return ;
+            if (k == strlen(word)){ //use strlen not len
+                return 0; //done now
             }
         }
     }
@@ -100,7 +100,7 @@ int recursive(int x, int y, int k){
 
 void convert(int* horizontal, int* vertical){
     int j; //
-    for (int i = 0; i < len(word); i++){
+    for (int i = 0; i < strlen(word); i++){
         (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + '0');
     }
 }
