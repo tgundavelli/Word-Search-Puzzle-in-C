@@ -119,7 +119,6 @@ void convert(int* horizontal, int* vertical, char* word){
     int j = 1; //
     for (int i = 0; i < strlen(word); i++){
         (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + 1 + '0');
-        (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) + ' ' + ' ' + ' ' + ' ' + ' ' + ' ' + ' '; //can't add strings
     }
 }
 
@@ -133,10 +132,15 @@ void printPuzzle(char** arr) {
         for (j = 0; j < bSize - 1; ++j) {
             printf("%c",*(*(arr + i) + j));
             //printing character so use %c 
-            printf(" ");         
+            if (arr == num_arr){
+                printf("        "); 
+            }
+            else {
+                printf(" ");
+            }        
         }
         printf("%c", *(*(arr + i) + j));
-        printf("\n");
+        printf("\n"); //don't apply changed spacing here
     }
 }
 void searchPuzzle(char** arr, char* word) {
