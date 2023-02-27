@@ -82,42 +82,33 @@ int recursive(int x, int y, int k, char** arr, char* word){
     int i, j;
     // k = 1 bc first letter found
 
-    warning = (int*)malloc(20 * sizeof(int));
-
-
     for (i = 0; i < bSize; i++){
         for (j = 0; j < bSize; j++){   //j++ not i++
-            if (k == (strlen(word) - 1)){ //use strlen not len
-                return 0; //done now
-            } 
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
-                printf("%d", i);
-                printf("%d", j);
-                printf("next");
-                printf("k", k);
-                if ((i != *(warning)) && (j != *(warning+1))){
+                if ((i != *(warning)) || (j != *(warning+1))){ //and in coding is different from and in truth tables
                     *(row + k) = i;
                     *(col + k) = j;
-                    //printf("%d", i);
-                    //printf("%d", j);
-                    //printf("%c", *(*(arr + i) + j));
-                    //printf("%c", *(word + k));
                     k++;
+                    if (k == (strlen(word))){ //use strlen not len
+                        return 0; //done now, use len, ask before recursion
+                    } 
                     return recursive(i, j, k, arr, word);
                 }
-            
+            }
         }
     }
-}
-    
+
+
+    //questions - where is 04? Why is it not catching - ifstatement, warning, or loop
+    printf("\n");
     if (k < strlen(word)){
-        *(warning) = *(row);
-        *(warning + 1) = *(col);
+        *(warning) = *(row + 1);
+        *(warning + 1) = *(col + 1);
         x = *(row);
         y = *(col);
         memset(row, 0, k * sizeof(int));
         memset(col, 0, k * sizeof(int));
-        *(row) = x;
+       *(row) = x;
         *(col) = y;
         return recursive(x, y, 1, arr, word);
     }
@@ -165,9 +156,6 @@ void searchPuzzle(char** arr, char* word) {
         *(*(num_arr + i) + j) = '0'; 
     }
 
-    printf("\nPrinting the search path:\n");
-    printPuzzle(num_arr);
-
     row = (int*)malloc(strlen(word) * sizeof(int)); //x-coord
     col = (int*)malloc(strlen(word) * sizeof(int));//y-coord
     //to make these print/not have seg fault, malloc them
@@ -180,12 +168,15 @@ void searchPuzzle(char** arr, char* word) {
                 printf("%d \n", *(row + count));
                 printf("%d \n", *(col + count));
                 count++;
+                warning = (int*)malloc(20 * sizeof(int));
                 recursive(i, j, 1, arr, word);
             }        
         }  
     }
 
-    //convert(horizontal, vertical, word);
+    convert(row, col, word);
+    printf("\nPrinting the search path:\n");
+    printPuzzle(num_arr);
 
     //best order
     //new first letter
