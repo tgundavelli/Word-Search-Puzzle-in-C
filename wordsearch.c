@@ -262,11 +262,11 @@ void searchPuzzle(char** arr, char* word) {
                 count++;
                 warning = (int*)malloc(20 * sizeof(int));
                 recursive(i, j, 1, arr, word);
-                //if ((*(row + strlen(word) - 1)) == NULL){
-                //    *(warning) = *(row);
-                //    *(warning) = *(col);
-                //    count = 0; //if no end to word found, change to a different starting letter
-                //}
+                if ((row + strlen(word) - 1) == NULL){ //compare pointer with (void*) NULL
+                    *(warning) = *(row);
+                    *(warning) = *(col);
+                    count = 0; //if no end to word found, change to a different starting letter
+                }
 
             }        
         }  
@@ -278,5 +278,6 @@ void searchPuzzle(char** arr, char* word) {
     printPuzzle(num_arr);
 
     //duplicate or best order or new first letter
+    //best order is ok now
 
 }
