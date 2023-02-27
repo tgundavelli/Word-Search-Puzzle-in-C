@@ -89,7 +89,7 @@ int recursive(int x, int y, int k, char** arr, char* word){
                 *(row + k) = i;
                 *(col + k) = j;
                 k++;
-                return recursive(i, j, k);
+                return recursive(i, j, k, arr, word);
             }
             if (k == strlen(word)){ //use strlen not len
                 return 0; //done now
@@ -99,7 +99,7 @@ int recursive(int x, int y, int k, char** arr, char* word){
     return 0;
 }
 
-void convert(int* horizontal, int* vertical){
+void convert(int* horizontal, int* vertical, char* word){
     int j = 1; //
     for (int i = 0; i < strlen(word); i++){
         (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + 1 + '0');
@@ -161,7 +161,7 @@ void searchPuzzle(char** arr, char* word) {
         }  
     }
 
-    //convert(horizontal, vertical);
+    //convert(horizontal, vertical, word);
 
 
     //new first letter
