@@ -81,19 +81,22 @@ int recursive(int x, int y, int k, char** arr, char* word){
     int i, j;
     // k = 1 bc first letter found
 
+    printf("%c", *(*(arr + x) + y));
+    printf("%c", *(word + k));
+
     for (i = 0; i < bSize; i++){
-        for (j = 0; j < bSize; i++){
-            printf("%c", *(*(arr + i) + j));
-            printf("%c", *(word + k));
+        for (j = 0; j < bSize; j++){   //j++ not i++
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
                 *(row + k) = i;
                 *(col + k) = j;
+                printf("%c", *(*(arr + i) + j));
+                printf("%c", *(word + k));
                 k++;
                 return recursive(i, j, k, arr, word);
             }
-            if (k == strlen(word)){ //use strlen not len
-                return 0; //done now
-            }
+    //        if (k == strlen(word)){ //use strlen not len
+    //            return 0; //done now
+    //        }
         }
     }
     return 0;
@@ -150,7 +153,6 @@ void searchPuzzle(char** arr, char* word) {
     for(i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
             if ((*(*(arr + i) + j) == *(word + 0)) && (count == 0)){
-                printf("here");
                 *(row + count) = i;
                 *(col + count) = j;
                 printf("%d \n", *(row + count));
