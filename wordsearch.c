@@ -96,13 +96,15 @@ int recursive(int x, int y, int k){
             }
         }
     }
+    return 0;
 }
 
 void convert(int* horizontal, int* vertical){
-    int j; //
-    for (int i = 0; i < strlen(word); i++){
-        (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + '0');
-    }
+    int j = 1; //
+    (*(*(num_arr + (*(horizontal))) + (*(vertical)))) = (char)(j + '0');
+    //for (int i = 0; i < strlen(word); i++){
+    //    (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + 1 + '0');
+    //}
 }
 
 void printPuzzle(char** arr) {
