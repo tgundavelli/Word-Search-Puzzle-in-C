@@ -52,6 +52,89 @@ int main(int argc, char **argv) {
     return 0;
 }
 
+char* hardcode(char* word){
+    //library function to convert uppercase/lowercase not allowed
+    for (int i = 0; i < strlen(word); i++){
+        if ((*(word + i)) == 'a'){
+            *(word + i) = 'A';
+        }
+        else if ((*(word + i)) == 'b'){
+            *(word + i) = 'B';
+        }
+        else if ((*(word + i)) == 'c'){
+            *(word + i) = 'C';
+        }
+        else if ((*(word + i)) == 'd'){
+            *(word + i) = 'D';
+        }
+        else if ((*(word + i)) == 'e'){
+            *(word + i) = 'E';
+        }
+        else if ((*(word + i)) == 'f'){
+            *(word + i) = 'F';
+        }
+        else if ((*(word + i)) == 'g'){
+            *(word + i) = 'G';
+        }
+        else if ((*(word + i)) == 'h'){
+            *(word + i) = 'H';
+        }
+        else if ((*(word + i)) == 'i'){
+            *(word + i) = 'I';
+        }
+        else if ((*(word + i)) == 'j'){
+            *(word + i) = 'J';
+        }
+        else if ((*(word + i)) == 'k'){
+            *(word + i) = 'K';
+        }
+        else if ((*(word + i)) == 'l'){
+            *(word + i) = 'L';
+        }
+        else if ((*(word + i)) == 'm'){
+            *(word + i) = 'M';
+        }
+        else if ((*(word + i)) == 'n'){
+            *(word + i) = 'N';
+        }
+        else if ((*(word + i)) == 'o'){
+            *(word + i) = 'O';
+        }
+        else if ((*(word + i)) == 'p'){
+            *(word + i) = 'P';
+        }
+        else if ((*(word + i)) == 'q'){
+            *(word + i) = 'Q';
+        }
+        else if ((*(word + i)) == 'r'){
+            *(word + i) = 'R';
+        }
+        else if ((*(word + i)) == 's'){
+            *(word + i) = 'S';
+        }
+        else if ((*(word + i)) == 't'){
+            *(word + i) = 'T';
+        }
+        else if ((*(word + i)) == 'u'){
+            *(word + i) = 'U';
+        }
+        else if ((*(word + i)) == 'v'){
+            *(word + i) = 'V';
+        }
+        else if ((*(word + i)) == 'w'){
+            *(word + i) = 'W';
+        }
+        else if ((*(word + i)) == 'y'){
+            *(word + i) = 'Y';
+        }
+        else{
+            *(word + i) = 'Z';
+        }
+    }
+
+    return word;
+}
+
 int distance(int i, int j, int x, int y){
     if (i == x){
         if (((j - y) == 1) || ((j-y) == -1)){
@@ -161,6 +244,7 @@ void searchPuzzle(char** arr, char* word) {
         *(*(num_arr + i) + j) = '0'; 
     }
 
+    word = hardcode(word);
     row = (int*)malloc(strlen(word) * sizeof(int)); //x-coord
     col = (int*)malloc(strlen(word) * sizeof(int));//y-coord
     //to make these print/not have seg fault, malloc them
@@ -186,7 +270,6 @@ void searchPuzzle(char** arr, char* word) {
     //best order
     //new first letter
     //duplicate 
-    //turn into num_array 
     //all caps
 
 }
