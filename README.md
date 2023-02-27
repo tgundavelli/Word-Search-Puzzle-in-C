@@ -15,7 +15,6 @@ Repeated Warning : Never have output file with same name as code. Use default a.
 # Project_ONE_wordsearch
 Save files. Output names should be different from code 
 
-1. Print Original Array
-2. Initialize Num Array
-3. Print Num Array
-4. Index 1 by 1 (first challenge)
+1. Print Original Array CHECK
+2. Initialize Num Array CHECK
+3. Index 1 by 1 (first challenge)
