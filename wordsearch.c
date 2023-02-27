@@ -81,36 +81,36 @@ int distance(int i, int j, int x, int y){
 int recursive(int x, int y, int k, char** arr, char* word){
     int i, j;
     // k = 1 bc first letter found
-    static int count;
 
     warning = (int*)malloc(20 * sizeof(int));
-
-    printf("%d", *(row));
-    printf("%d", *(col));
 
 
     for (i = 0; i < bSize; i++){
         for (j = 0; j < bSize; j++){   //j++ not i++
+            if (k == (strlen(word) - 1)){ //use strlen not len
+                return 0; //done now
+            } 
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
+                printf("%d", i);
+                printf("%d", j);
+                printf("next");
+                printf("k", k);
                 if ((i != *(warning)) && (j != *(warning+1))){
                     *(row + k) = i;
                     *(col + k) = j;
-                    printf("%d", i);
-                    printf("%d", j);
-                    printf("%c", *(*(arr + i) + j));
-                    printf("%c", *(word + k));
+                    //printf("%d", i);
+                    //printf("%d", j);
+                    //printf("%c", *(*(arr + i) + j));
+                    //printf("%c", *(word + k));
                     k++;
                     return recursive(i, j, k, arr, word);
                 }
-            }
-            if (k == strlen(word)){ //use strlen not len
-                return 0; //done now
-            }
+            
         }
     }
-    count = 0;
+}
+    
     if (k < strlen(word)){
-        count++;
         *(warning) = *(row);
         *(warning + 1) = *(col);
         x = *(row);
