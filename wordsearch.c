@@ -8,8 +8,8 @@ char* word; //made arr and word global
 void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
 int bSize;
-int* horizontal; //x-coord
-int* vertical; //y-coord
+int* row; //x-coord
+int* col; //y-coord
 char** num_arr;
 // Main function, DO NOT MODIFY 
 int main(int argc, char **argv) {
@@ -143,18 +143,18 @@ void searchPuzzle(char** arr, char* word) {
     printf("\nPrinting the search path:\n");
     printPuzzle(num_arr);
 
-    horizontal = (int*)malloc(strlen(word) * sizeof(int)); //x-coord
-    vertical = (int*)malloc(strlen(word) * sizeof(int));//y-coord
+    row = (int*)malloc(strlen(word) * sizeof(int)); //x-coord
+    col = (int*)malloc(strlen(word) * sizeof(int));//y-coord
     //to make these print/not have seg fault, malloc them
 
     for(i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
             if ((*(*(arr + i) + j) == *(word + 0)) && (count == 0)){
                 printf("here");
-                *(horizontal + count) = i;
-                *(vertical + count) = j;
-                printf("%d \n", *(horizontal + count));
-                printf("%d \n", *(vertical + count));
+                *(row + count) = i;
+                *(col + count) = j;
+                printf("%d \n", *(row + count));
+                printf("%d \n", *(col + count));
                 count++;
                 //recursive(i, j, 1);
             }        
