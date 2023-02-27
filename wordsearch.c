@@ -86,8 +86,8 @@ int recursive(int x, int y, int k){
     for (i = 0; i < bSize; i++){
         for (j = 0; j < bSize; i++){
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
-                *(horizontal + k) = i;
-                *(vertical + k) = j;
+                *(row + k) = i;
+                *(col + k) = j;
                 k++;
                 return recursive(i, j, k);
             }
