@@ -127,8 +127,9 @@ char* hardcode(char* word){
         else if ((*(word + i)) == 'y'){
             *(word + i) = 'Y';
         }
-        else{
+        else if ((*(word + i)) == 'z') {
             *(word + i) = 'Z';
+            //keep as else if instead of else bc else is for uppercase letters
         }
     }
 
