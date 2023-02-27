@@ -3,8 +3,6 @@
 #include <string.h>
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
-char** arr;
-char* word; //made arr and word global
 void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
 int bSize;
@@ -79,12 +77,14 @@ int distance(int i, int j, int x, int y){
     }
 }
 
-int recursive(int x, int y, int k){
+int recursive(int x, int y, int k, char** arr, char* word){
     int i, j;
     // k = 1 bc first letter found
 
     for (i = 0; i < bSize; i++){
         for (j = 0; j < bSize; i++){
+            printf("%c", *(*(arr + i) + j));
+            printf("%c", *(word + k));
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
                 *(row + k) = i;
                 *(col + k) = j;
@@ -156,7 +156,7 @@ void searchPuzzle(char** arr, char* word) {
                 printf("%d \n", *(row + count));
                 printf("%d \n", *(col + count));
                 count++;
-                //recursive(i, j, 1);
+                recursive(i, j, 1, arr, word);
             }        
         }  
     }
