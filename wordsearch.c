@@ -119,6 +119,7 @@ void convert(int* horizontal, int* vertical, char* word){
     int j = 1; //
     for (int i = 0; i < strlen(word); i++){
         (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + 1 + '0');
+        (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) + ' ' + ' ' + ' ' + ' ' + ' ' + ' ' + ' '; //can't add strings
     }
 }
 
