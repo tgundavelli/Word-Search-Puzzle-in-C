@@ -101,10 +101,9 @@ int recursive(int x, int y, int k){
 
 void convert(int* horizontal, int* vertical){
     int j = 1; //
-    (*(*(num_arr + (*(horizontal))) + (*(vertical)))) = (char)(j + '0');
-    //for (int i = 0; i < strlen(word); i++){
-    //    (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + 1 + '0');
-    //}
+    for (int i = 0; i < strlen(word); i++){
+        (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + 1 + '0');
+    }
 }
 
 void printPuzzle(char** arr) {
@@ -130,6 +129,7 @@ void searchPuzzle(char** arr, char* word) {
     // different message as shown in the sample runs.
     // Your implementation here...
     int i, j;
+    int count = 0;
     num_arr = (char**)malloc(bSize * sizeof(char*));
     //already declared num_arr as global
     for(i = 0; i < bSize; i++) {
@@ -140,22 +140,33 @@ void searchPuzzle(char** arr, char* word) {
         *(*(num_arr + i) + j) = '0'; 
     }
 
+    printf("\nPrinting the search path:\n");
+    printPuzzle(num_arr);
+
+    horizontal = (int*)malloc(strlen(word) * sizeof(int)); //x-coord
+    vertical = (int*)malloc(strlen(word) * sizeof(int));//y-coord
+    //to make these print/not have seg fault, malloc them
+
     for(i = 0; i < bSize; i++) {
-        for (j = 0; j < bSize - 1; ++j) {
-            if (*(*(arr + i) + j) == *(word)){
-                *(horizontal) = i;
-                *(vertical) = j;
-                recursive(i, j, 1);
+        for (j = 0; j < bSize; j++) {
+            if ((*(*(arr + i) + j) == *(word + 0)) && (count == 0)){
+                printf("here");
+                *(horizontal + count) = i;
+                *(vertical + count) = j;
+                printf("%d \n", *(horizontal + count));
+                printf("%d \n", *(vertical + count));
+                count++;
+                //recursive(i, j, 1);
             }        
         }  
     }
 
-    convert(horizontal, vertical);
+    //convert(horizontal, vertical);
+
 
     //new first letter
     //duplicate 
-    //turn into num_array - check?
+    //turn into num_array 
+    //all caps
 
-    printf("\nPrinting the search path:\n");
-    printPuzzle(num_arr);
 }
