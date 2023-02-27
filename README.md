@@ -5,8 +5,8 @@ https://www.youtube.com/watch?v=RGOj5yH7evk
 
 Use git commit -am "save file"
 git config core.autocrlf true
-for when input txt files are added
-Use comments to help understand code
+for when input txt files are added. 
+Use comments to help understand code. 
 After all the status checking and adding/committing, type : git push
 to update files on github account
 
