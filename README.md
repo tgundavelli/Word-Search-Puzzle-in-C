@@ -16,6 +16,6 @@ Repeated Warning : Never have output file with same name as code. Use default a.
 
 1. Print Original Array CHECK
 2. Initialize Num Array CHECK
-3. Index 1 by 1 CHECK
-4. All Caps CHECK
-5. Duplicates (backtracing) or new first letter or best order??
+3. Index 1 by 1 (first challenge) CHECK
+4. Multiple Second Letters leading to Dead-ends Problem CHECK
+5. Different First Letters To Pick From CHECK
