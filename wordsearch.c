@@ -5,9 +5,12 @@
 // Feel free to declare any helper functions or global variables
 void printPuzzle(char** arr);
 void searchPuzzle(char** arr, char* word);
+int c;
 int bSize;
 int* row; //x-coord
 int* col; //y-coord
+int* x_warn;
+int* y_warn;
 int* warning;
 char** num_arr;
 // Main function, DO NOT MODIFY 
@@ -164,16 +167,30 @@ int distance(int i, int j, int x, int y){
 
 int recursive(int x, int y, int k, char** arr, char* word){
     int i, j;
+    int ban;
+
+    //printf("Start %d %d \n", x, y);
+
     // k = 1 bc first letter found
-    static int c = 0; //static does not get initialized everytime
+    //static does not get initialized everytime
+    //but if called outside of recursive function for change in first letter,
+    //problem arises
+
     //next time maybe have less local variables that have the same name
     for (i = 0; i < bSize; i++){
         for (j = 0; j < bSize; j++){   //j++ not i++
+            //printf("Test %d %d \n", i, j);
             if ((*(*(arr + i) + j) == (*(word + k))) && (distance(x, y, i, j) == 0)){
-                for (int ban = 0; ban < c; ban +=2){ //instead of ++, use +=2 bc ban and ban+1
-                    printf("C %d \n", c);
-                    printf("Warning%d %d", *(warning+ban), *(warning+ban+1));
-                    if ((i != *(warning + ban)) || (j != *(warning+ ban + 1))){ //and in coding is different from and in truth tables
+                if (c == 0){
+                    //printf("IF %d %d \n", i, j);
+                    *(row + k) = i;
+                    *(col + k) = j;
+                    k++;
+                    return recursive(i, j, k, arr, word);
+                } else {
+                for (ban = 0; ban < c; ban++){
+                    if ((i != *(x_warn + ban)) || (j != *(y_warn + ban))){ //and in coding is different from and in truth tables
+                        //printf("ELSE %d %d \n", i, j);
                         *(row + k) = i;
                         *(col + k) = j;
                         k++;
@@ -183,23 +200,34 @@ int recursive(int x, int y, int k, char** arr, char* word){
                         return recursive(i, j, k, arr, word);
                     }
                 }
-                printf("ended");
+                }
             }
         }
     }
 
 
     if (k < strlen(word)){
-        *(warning ) = *(row + 1);
-        *(warning + 1) = *(col + 1); //0 1 2 3, c = 2, 2 * c
+        *(x_warn + c) = *(row + 1); //store x and y-coord in 2 arrays instead of one like row and col
+        *(y_warn + c) = *(col + 1);
+        //printf("HERE %d %d %d \n",c, *(x_warn + c) , *(y_warn + c));
         c++;
+        //for now
         x = *(row);
         y = *(col);
-        memset(row, 0, k * sizeof(int));
-        memset(col, 0, k * sizeof(int));
-        *(row) = x;
-        *(col) = y;
-        return recursive(x, y, 1, arr, word);
+        if (c == 6){ //3 above first letter, 3 below, 2 to the sides
+            memset(row, -1, k * sizeof(int)); //only focus on first coord to check if wrong
+            //printf("This is it\n");
+            return 0; //cannot be found, returning 1 doesn't end function
+            //change row numbers to -1 to show smth is wrong
+        }
+        else {
+            //printf("END %d %d %d \n", c, x, y);
+            memset(row, 0, k * sizeof(int));
+            memset(col, 0, k * sizeof(int));
+            *(row) = x;
+            *(col) = y;
+            return recursive(x, y, 1, arr, word);
+        }
     }
     return 0;
 }
@@ -239,7 +267,8 @@ void searchPuzzle(char** arr, char* word) {
     // different message as shown in the sample runs.
     // Your implementation here...
     int i, j;
-    int count = 0;
+    int a = 0;
+    int b = 0;
     num_arr = (char**)malloc(bSize * sizeof(char*));
     //already declared num_arr as global
     for(i = 0; i < bSize; i++) {
@@ -251,28 +280,53 @@ void searchPuzzle(char** arr, char* word) {
     }
 
     word = hardcode(word);
+
+    warning = (int*)malloc(20 * sizeof(int)); 
     row = (int*)malloc(strlen(word) * sizeof(int)); //x-coord
     col = (int*)malloc(strlen(word) * sizeof(int));//y-coord
     //to make these print/not have seg fault, malloc them
 
     for(i = 0; i < bSize; i++) {
         for (j = 0; j < bSize; j++) {
-            if ((*(*(arr + i) + j) == *(word + 0)) && (count == 0)){
-                *(row) = i;
-                *(col) = j;
-                count++;
-                warning = (int*)malloc(20 * sizeof(int));
-                recursive(i, j, 1, arr, word);
-                //printf("ANS %d \n",*(row + strlen(word) - 1));
-                //if ((*(row + strlen(word) - 1)) == NULL){
-                //    *(warning) = *(row);
-                //    *(warning) = *(col);
-                //    count = 0; //if no end to word found, change to a different starting letter
-                //}
-
+            if (b == 0){
+                if ((*(*(arr + i) + j) == *(word + 0)) && (a == 0)){
+                    *(row) = i;
+                    *(col) = j;
+                    a++;
+                    x_warn = (int*)malloc(20 * sizeof(int));
+                    y_warn = (int*)malloc(20 * sizeof(int));
+                    c = 0; 
+                    recursive(i, j, 1, arr, word);
+                    c = 0;
+                    if (*(row) == -1){
+                        *(warning + b) = i;
+                        *(warning + b + 1) = j;
+                        b++; //number of letters that don't work
+                        a = 0; //if no end to word found, change to a different starting letter
+                    }
+                }
+            } else {
+                if ((*(*(arr + i) + j) == *(word + 0)) && (a == 0)){ //check if it both is not in warning and is fit
+                    for (int d = 0; d < b; d+=2){
+                        if ((i != *(warning + d)) || (j != *(warning + d + 1))){ 
+                            *(row) = i;
+                            *(col) = j;
+                            a++;
+                            c = 0;
+                            recursive(i, j, 1, arr, word);
+                            c = 0;
+                            if (*(row + 1) == -1){
+                                *(warning + b) = i;
+                                *(warning + b + 1) = j;
+                                b++; //number of letters that don't work
+                                a = 0; //if no end to word found, change to a different starting letter
+                            }    
+                        }
+                    }
+                }
             }        
         }  
-    }
+    } //make sure parathesis are symmetrical
 
     convert(row, col, word);
     printf("\nWord found!\n"); //\n at beginnning prints empty line above
@@ -286,6 +340,6 @@ void searchPuzzle(char** arr, char* word) {
     //best order bc deadends. first letter not working is ultimate deadend
     //not able to go backwards
 
-    //works in all directions but can't handle a new first letter
+    //duplicate, no word found, multiple ways
 
 }

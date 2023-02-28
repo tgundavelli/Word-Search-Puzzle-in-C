@@ -17,4 +17,6 @@ Save files. Output names should be different from code
 
 1. Print Original Array CHECK
 2. Initialize Num Array CHECK
-3. Index 1 by 1 (first challenge)
+3. Index 1 by 1 (first challenge) CHECK
+4. Multiple Second Letters leading to Dead-ends Problem CHECK
+5. Different First Letters To Pick From CHECK
