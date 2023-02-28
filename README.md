@@ -5,15 +5,14 @@ https://www.youtube.com/watch?v=RGOj5yH7evk
 
 Use git commit -am "save file"
 git config core.autocrlf true
-- for when a input txt files are added
-Use comments to help understand code
+for when input txt files are added. 
+Use comments to help understand code. 
 After all the status checking and adding/committing, type : git push
 to update files on github account
 
 Repeated Warning : Never have output file with same name as code. Use default a.exe
 
 # Project_ONE_wordsearch
-Save files. Output names should be different from code 
 
 1. Print Original Array CHECK
 2. Initialize Num Array CHECK
