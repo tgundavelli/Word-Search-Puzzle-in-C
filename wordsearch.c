@@ -12,6 +12,8 @@ int* col; //y-coord
 int* x_warn;
 int* y_warn;
 int* warning;
+char* duplicates;
+char* repeats;
 char** num_arr;
 // Main function, DO NOT MODIFY 
 int main(int argc, char **argv) {
@@ -140,6 +142,7 @@ char* hardcode(char* word){
 }
 
 int distance(int i, int j, int x, int y){
+    //(i == x) and (j == y) not allowed
     if (i == x){
         if (((j - y) == 1) || ((j-y) == -1)){
             return 0;
@@ -233,7 +236,48 @@ int recursive(int x, int y, int k, char** arr, char* word){
 }
 
 void convert(int* horizontal, int* vertical, char* word){
-    int j = 1; //
+    //check for repeats, count number of duplicates
+    //you cannot sort array because it is coordinates x and y
+
+    duplicates = (char*)malloc(20 * sizeof(char));
+    repeats = (char*)malloc(20 * sizeof(char));
+    //this is an array and char* means strings so a character array
+    //cannot contain more than one character in one index
+    memset(duplicates, '0', 20 * sizeof(int));
+
+    //first check for frequency
+    int prev = -1;
+    int next = 0;
+
+    for (int a = 0; a < strlen(word); a++){
+        if (next == strlen(word)){ //0..wordlen is 1..wordlen-1
+            break;
+            }
+        if (next != prev){
+            *(duplicates + next) = (char)(a + 1 + '0');
+        }
+        else {
+            a++;
+            *(duplicates + next) = (char)(a + 1 + '0');
+        }
+        printf("next %d # %c \n", next, *(duplicates + next));
+        for (int b = 0; b < strlen(word); b++){
+            if ((a != b) && ((*(horizontal + a)) == (*(horizontal + b))) && ((*(vertical + a)) == (*(vertical + b)))){
+                next++;
+                *(duplicates + next) = (char)(b + 1 +'0');
+                prev = b + 1;
+                printf("next %d # %c \n", next, *(duplicates + next));
+            }
+        }
+        next++;
+    }
+
+    //then somehow print it
+    //how to know if it's a repeating coordinate
+    //i created the output but not how to check to plug it in
+    //problem is characters can only be one character. you need to combine properly
+    //just because two diff nums are next to each other, doesn't mean they're together
+
     for (int i = 0; i < strlen(word); i++){
         (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + 1 + '0');
     }
@@ -245,11 +289,30 @@ void printPuzzle(char** arr) {
     // in the instructions.
     // Your implementation here...
     int i, j;
+    int next = 0;
+    
     for(i = 0; i < bSize; i++) {
         for (j = 0; j < bSize - 1; ++j) {
             printf("%c",*(*(arr + i) + j));
+            //*(*(arr + i) + j) = *(repeats + next);
+            next++;
             //printing character so use %c 
             if (arr == num_arr){
+                if (*(*(arr + i) + j) != '0'){
+                    for (int k = 0; k < bSize; k++){
+                        //printf("k %d \n", k);
+                        if ((*(duplicates + k)) == *(*(arr + i) + j)){
+                            while (((*(duplicates + k - 1)) != ((*(duplicates + k)) - 1)) && ((k - 1) != -1)){
+                                k--;
+                                //*(duplicates + k) = *(repeats + next);
+                                next++;
+                                printf("%c",*(duplicates + k));
+                            }
+                        break; //to prevent infinity loop
+                        //test
+                        }
+                    }
+                }
                 printf("        "); 
             }
             else {
@@ -341,5 +404,6 @@ void searchPuzzle(char** arr, char* word) {
     //not able to go backwards
 
     //duplicate, no word found, multiple ways
+    //one kinds of duplicates : 234 with 24 in same spot
 
 }

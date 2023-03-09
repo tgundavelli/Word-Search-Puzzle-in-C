@@ -19,3 +19,4 @@ Repeated Warning : Never have output file with same name as code. Use default a.
 3. Index 1 by 1 (first challenge) CHECK
 4. Multiple Second Letters leading to Dead-ends Problem CHECK
 5. Different First Letters To Pick From CHECK
+6. Created Duplicate Order Character Array CHECK
