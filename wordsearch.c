@@ -288,40 +288,87 @@ void printPuzzle(char** arr) {
     // It must produce the output in the SAME format as the samples 
     // in the instructions.
     // Your implementation here...
-    int i, j;
+    int i, j, k, m;
     int next = 0;
+    int count = 0;
+    int second = 0;
     
     for(i = 0; i < bSize; i++) {
         for (j = 0; j < bSize - 1; ++j) {
             printf("%c",*(*(arr + i) + j));
-            //*(*(arr + i) + j) = *(repeats + next);
-            next++;
             //printing character so use %c 
             if (arr == num_arr){
                 if (*(*(arr + i) + j) != '0'){
-                    for (int k = 0; k < bSize; k++){
-                        //printf("k %d \n", k);
+                    count++;
+                    *(repeats + next) = *(*(arr + i) + j); //make sure right = left not left = right
+                    next++;
+                    for (k = 0; k < bSize; k++){
                         if ((*(duplicates + k)) == *(*(arr + i) + j)){
-                            while (((*(duplicates + k - 1)) != ((*(duplicates + k)) - 1)) && ((k - 1) != -1)){
-                                k--;
-                                //*(duplicates + k) = *(repeats + next);
-                                next++;
-                                printf("%c",*(duplicates + k));
+                            while (((*(duplicates + k - 1)) != ((*(duplicates + k)) - 1)) && ((k - 1) != -1) && (count >= 0)){
+                                for (m = 0; m < next; m++){
+                                    if (*(duplicates + k - 1) == *(repeats + m)){
+                                        count = -1;
+                                    }
+                                }
+                                if (count != -1){//while loop does not immediately terminate, only at beginning of iteration
+                                    k--;
+                                    count++;
+                                    *(repeats + next) = *(duplicates + k);
+                                    next++;
+                                    printf("%c",*(duplicates + k));
+                                    second++;
+                                }
                             }
                         break; //to prevent infinity loop
                         //test
                         }
                     }
                 }
-                printf("        "); 
+                if (second > 0) {
+                    for (int h = 0; h < (8 - second); h++){
+                        printf(" ");
+                    }
+                    second = 0;
+                }
+                else {
+                    printf("        "); 
+                }
             }
             else {
                 printf(" ");
             }        
         }
-        printf("%c", *(*(arr + i) + j));
+        printf("%c", *(*(arr + i) + j)); //for borders
+        if (arr == num_arr){
+                if (*(*(arr + i) + j) != '0'){
+                    count++;
+                    *(repeats + next) = *(*(arr + i) + j); //make sure right = left not left = right
+                    next++;
+                    for (k = 0; k < bSize; k++){
+                        if ((*(duplicates + k)) == *(*(arr + i) + j)){
+                            while (((*(duplicates + k - 1)) != ((*(duplicates + k)) - 1)) && ((k - 1) != -1) && (count >= 0)){
+                                for (m = 0; m < next; m++){
+                                    if (*(duplicates + k - 1) == *(repeats + m)){
+                                        count = -1;
+                                    }
+                                }
+                                if (count != -1){//while loop does not immediately terminate, only at beginning of iteration
+                                    k--;
+                                    count++;
+                                    *(repeats + next) = *(duplicates + k);
+                                    next++;
+                                    printf("%c",*(duplicates + k));
+                                }
+                            }
+                        break; //to prevent infinity loop
+                        //test
+                        }
+                    }
+                }
+        }
         printf("\n"); //don't apply changed spacing here
     }
+
 }
 void searchPuzzle(char** arr, char* word) {
     // This function checks if arr contains the search word. If the 
