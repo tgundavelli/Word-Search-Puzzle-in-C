@@ -259,14 +259,12 @@ void convert(int* horizontal, int* vertical, char* word){
         else {
             a++;
             *(duplicates + next) = (char)(a + 1 + '0');
-        }
-        printf("next %d # %c \n", next, *(duplicates + next));
+        }  
         for (int b = 0; b < strlen(word); b++){
             if ((a != b) && ((*(horizontal + a)) == (*(horizontal + b))) && ((*(vertical + a)) == (*(vertical + b)))){
                 next++;
                 *(duplicates + next) = (char)(b + 1 +'0');
                 prev = b + 1;
-                printf("next %d # %c \n", next, *(duplicates + next));
             }
         }
         next++;
@@ -281,6 +279,12 @@ void convert(int* horizontal, int* vertical, char* word){
     for (int i = 0; i < strlen(word); i++){
         (*(*(num_arr + (*(horizontal + i))) + (*(vertical + i)))) = (char)(i + 1 + '0');
     }
+}
+
+void mash(){
+    //when there are duplicates
+    //duplicates can't be stored in the char array
+    
 }
 
 void printPuzzle(char** arr) {
@@ -438,10 +442,15 @@ void searchPuzzle(char** arr, char* word) {
         }  
     } //make sure parathesis are symmetrical
 
-    convert(row, col, word);
-    printf("\nWord found!\n"); //\n at beginnning prints empty line above
-    printf("Printing the search path:\n");
-    printPuzzle(num_arr);
+    if (a != 0) {
+        convert(row, col, word);
+        printf("\nWord found!\n"); //\n at beginnning prints empty line above
+        printf("Printing the search path:\n");
+        printPuzzle(num_arr);
+    }
+    else {
+        printf("\nWord not found!\n");
+    }
 
     //duplicate or best order or new first letter
     //best order not doing well but let's focus on new first letter rn
