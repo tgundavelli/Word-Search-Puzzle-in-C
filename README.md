@@ -20,3 +20,11 @@ Repeated Warning : Never have output file with same name as code. Use default a.
 4. Multiple Second Letters leading to Dead-ends Problem CHECK
 5. Different First Letters To Pick From CHECK
 6. Created Duplicate Order Character Array CHECK
+
+7. Was able to add duplicates in PrintArray but not in the char** array itself so 
+unable to add multiple ways
+
+Lessons learned :
+- keep code concise 
+- make sure not to use a lot of memory
+- recursion is useful
