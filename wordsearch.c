@@ -281,12 +281,6 @@ void convert(int* horizontal, int* vertical, char* word){
     }
 }
 
-void mash(){
-    //when there are duplicates
-    //duplicates can't be stored in the char array
-    
-}
-
 void printPuzzle(char** arr) {
 // This function will print out the complete puzzle grid (arr). 
     // It must produce the output in the SAME format as the samples 
@@ -459,7 +453,7 @@ void searchPuzzle(char** arr, char* word) {
     //best order bc deadends. first letter not working is ultimate deadend
     //not able to go backwards
 
-    //duplicate, no word found, multiple ways
+    //duplicate, no word found
     //one kinds of duplicates : 234 with 24 in same spot
 
 }
