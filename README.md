@@ -12,7 +12,7 @@ to update files on github account
 
 Repeated Warning : Never have output file with same name as code. Use default a.exe
 
-# Project_ONE_wordsearch
+# Word Search Puzzle in C
 
 1. Print Original Array CHECK
 2. Initialize Num Array CHECK
